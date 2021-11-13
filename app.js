@@ -5,7 +5,6 @@ var express = require('express');
 var app = express();
 
 const hostname = '127.0.0.1';
-const port = 3000;
 
 var dividasAtivas = [
     {
@@ -140,9 +139,7 @@ app.get('/caduca/educacao-financeira-list', function (req, res) {
 
 http.createServer(app, function (req, res) {
     console.log(`Server running at http://${hostname}:9080/`);
-}).listen(9080);
+}).listen($PORT);
 
-https.createServer(app, function (req, res) {
-    console.log(`Server running at http://${hostname}:9443/`);
-}).listen(9443);
+
 
