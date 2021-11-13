@@ -1,5 +1,6 @@
 const http = require('http');
 const https = require('https');
+const request = require('request');
 
 var express = require('express');
 var app = express();
@@ -136,8 +137,43 @@ app.get('/caduca/educacao-financeira-list', function (req, res) {
             }
         ]
     });
-
 });
+
+
+app.get('/caduca/consulta-lookia/:cpf', function (req, res) {
+    var cpf = req.params.cpf;
+
+    request.get({
+        headers: { 'content-type': 'application/json', 'authorization': 'Basic b3BlbnRob24zOmFkSGNNenJQbXhmYldqN3E=' },
+        url: 'http://34.209.64.92:3000/api/v1/users/auth',
+    }, function (error, response, body) {
+        var resp = JSON.parse(body);
+        if (resp.data.accessToken != null) {
+            request.post({
+                headers: { 'accept': 'application/json', 'content-type': 'application/json', 'authorization': 'Bearer ' + String(resp.data.accessToken) },
+                url: 'http://34.209.64.92:3000/api/v1/searches/credito',
+                body: JSON.stringify({
+                    "cpf": cpf,
+                    "tempo": 24
+                })
+            }, function (error, response, body) {
+                res.send(body);
+            });
+        }
+
+
+    });
+
+    // var request = require('request');
+    // request.get({
+    //     headers: { 'content-type': 'application/x-www-form-urlencoded' },
+    //     url: 'http://34.209.64.92:3000/api/v1/users/auth',
+    //     body: "mes=heydude"
+    // }, function (error, response, body) {
+    //     console.log(body);
+    // });
+});
+
 
 http.createServer(app, function (req, res) {
     console.log(`Server running at http://${hostname}:9080/`);
