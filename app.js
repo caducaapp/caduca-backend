@@ -1,4 +1,6 @@
 const http = require('http');
+const https = require('https');
+
 var express = require('express');
 var app = express();
 
@@ -117,8 +119,6 @@ app.get('/caduca/dividas-ativas/:id', function (req, res) {
 });
 
 app.get('/caduca/educacao-financeira-list', function (req, res) {
-
-
     res.send({
         links: [
             {
@@ -138,11 +138,11 @@ app.get('/caduca/educacao-financeira-list', function (req, res) {
 
 });
 
-
-
-
-
 http.createServer(app, function (req, res) {
-    console.log(`Server running at http://${hostname}:${port}/`);
-}).listen(3000);
+    console.log(`Server running at http://${hostname}:9080/`);
+}).listen(9080);
+
+https.createServer(app, function (req, res) {
+    console.log(`Server running at http://${hostname}:9443/`);
+}).listen(9443);
 
