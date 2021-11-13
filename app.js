@@ -61,6 +61,7 @@ app.get('/', function (req, res) {
 
 app.get('/caduca/dividas-ativas', function (req, res) {
     res.send({
+        pontuacao: 286/1000,
         dividasAtivas: dividasAtivas
     });
 });
@@ -90,6 +91,7 @@ app.get('/caduca/dividas-pagas', function (req, res) {
     ]
 
     res.send({
+        pontuacao: 286/1000,
         dividasPagas: dividasPagas
     });
 });
