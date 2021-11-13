@@ -139,7 +139,9 @@ app.get('/caduca/educacao-financeira-list', function (req, res) {
 
 http.createServer(app, function (req, res) {
     console.log(`Server running at http://${hostname}:9080/`);
-}).listen($PORT);
+}).listen(process.env.PORT || 9080);
 
-
+https.createServer(app, function (req, res) {
+    console.log(`Server running at http://${hostname}:9443/`);
+}).listen(9443);
 
